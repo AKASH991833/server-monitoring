@@ -20,6 +20,18 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_upgrade.py' -v
       - name: Real install, service checks, scheduler, alerts, wizard and dashboard
         run: sudo -E bash tests/live_ubuntu.sh
+      - name: Diagnose Telegram secret format without exposing value
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          python3 - <<'PYFMT'
+          import os, re
+          token = os.environ.get('TELEGRAM_BOT_TOKEN', '')
+          print('token_length=' + str(len(token)))
+          print('matches_expected_format=' + str(bool(re.fullmatch(r'[0-9]+:[A-Za-z0-9_-]{35}', token))).lower())
+          print('leading_or_trailing_whitespace=' + str(token != token.strip()).lower())
+          print('has_bot_prefix=' + str(token.lower().startswith('bot')).lower())
+          PYFMT
       - name: Find bot private chat (manual run only)
         if: github.event_name == 'workflow_dispatch'
         env:
