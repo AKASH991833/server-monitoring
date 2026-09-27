@@ -8,3 +8,5 @@ config/secrets.env
 
 # OS noise
 .DS_Store
+__pycache__/
+*.pyc

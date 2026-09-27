@@ -9,6 +9,18 @@ Built as a learning + portfolio project for Linux system administration.
 Everything is plain Bash + standard tools (`/proc`, `df`, `ps`, `systemctl`,
 `curl`) - no agents, no databases, nothing to compile.
 
+## New here? Start with the beginner guide
+
+[Read the step-by-step beginner guide](docs/BEGINNER_GUIDE.md). It explains every term, a safe first run, the configuration wizard, and the local charts without assuming prior Linux experience.
+
+```bash
+./monitor.sh --test       # collect your first sample; alerts are simulated
+python3 setup.py         # optional guided configuration
+python3 dashboard/app.py # visit http://127.0.0.1:8765/ on this machine
+```
+
+The dashboard is read-only, binds to localhost only, and uses the Python standard library. It has no login or TLS: never expose it to the public internet. It reads `logs/metrics.csv`; installed user log path: `~/.local/state/server-monitoring/logs/metrics.csv` (pass `--metrics` to the dashboard). It refreshes every minute, but new data only arrives when the monitor runs.
+
 ## Features
 
 - CPU usage, load-per-core, memory, disk space, inode usage, service status
@@ -114,6 +126,9 @@ which is what the smoke tests use.
 
 ```
 server-monitoring/
+├── setup.py                  # local interactive configuration wizard
+├── dashboard/app.py          # read-only localhost graphs + latest checks
+├── docs/BEGINNER_GUIDE.md    # step-by-step guide from zero
 ├── monitor.sh               # entry point (checks, logging, alerting, report)
 ├── lib/
 │   ├── checks.sh            # metric collectors (read-only, no side effects)
@@ -144,7 +159,7 @@ See `docs/sample-report.html` for a real generated report.
 
 ## Roadmap
 
-- Network connectivity + open-port checks (`ss`, ping gateway)
+- Authenticated access and persistent dashboard history beyond local CSV
 - Certificate expiry checks for HTTPS endpoints
 - Prometheus-style text export (`node_exporter` format)
 - Slack / webhook alert channel
