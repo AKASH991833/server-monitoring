@@ -20,3 +20,26 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_upgrade.py' -v
       - name: Real install, service checks, scheduler, alerts, wizard and dashboard
         run: sudo -E bash tests/live_ubuntu.sh
+      - name: Find bot private chat (manual run only)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$TELEGRAM_BOT_TOKEN"
+          updates=$(curl -fsS --max-time 20 "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates")
+          UPDATES="$updates" python3 - <<'PYBOT'
+          import json, os, sys
+          data = json.loads(os.environ['UPDATES'])
+          if not data.get('ok'):
+              sys.exit('Telegram getUpdates failed')
+          chats = [(u['message']['chat']['id'], u['message']['chat'].get('username', ''),
+                    u['message']['chat'].get('first_name', ''))
+                   for u in data.get('result', [])
+                   if u.get('message', {}).get('chat', {}).get('type') == 'private'
+                   and u['message'].get('text', '').strip().lower() in ('hi', '/start')]
+          if not chats:
+              sys.exit('No private hi or /start update yet')
+          for chat_id, username, first_name in dict.fromkeys(chats):
+              print(f'Candidate private chat: id={chat_id}, username={username}, first_name={first_name}')
+          PYBOT
