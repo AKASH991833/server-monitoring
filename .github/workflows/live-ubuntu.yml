@@ -1,0 +1,22 @@
+name: Live Ubuntu integration test
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  live-ubuntu:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect live runner and run existing tests
+        run: |
+          set -euxo pipefail
+          ps -p 1 -o comm=
+          systemctl --version
+          bash tests/test_monitor.sh
+          python3 -m unittest discover -s tests -p 'test_upgrade.py' -v
+      - name: Real install, service checks, scheduler, alerts, wizard and dashboard
+        run: sudo -E bash tests/live_ubuntu.sh

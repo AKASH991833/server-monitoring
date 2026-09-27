@@ -135,7 +135,9 @@ check_services() {
         printf 'services\tNA\tUNKNOWN\tsystemctl not installed; service checks skipped\n'
         return
     fi
-    if ! systemctl is-system-running >/dev/null 2>&1; then
+    # is-system-running exits nonzero for a *degraded* host even when systemd
+    # is running and service checks work. Check the actual init process instead.
+    if [ "$(ps -p 1 -o comm= 2>/dev/null | tr -d ' ')" != systemd ]; then
         printf 'services\tNA\tUNKNOWN\tsystemd is not running here; service checks skipped\n'
         return
     fi
