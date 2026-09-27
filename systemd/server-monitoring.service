@@ -1,0 +1,7 @@
+[Unit]
+Description=Server monitoring checks (CPU, RAM, disk, services)
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=@WRAPPER@ --quiet

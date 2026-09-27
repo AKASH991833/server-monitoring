@@ -1,0 +1,4 @@
+# Reference crontab - install.sh adds these lines for you automatically.
+# Checks every 5 minutes, daily HTML report at 23:55.
+*/5 * * * * /opt/server-monitoring/run.sh --quiet
+55 23 * * * /opt/server-monitoring/run.sh --quiet --report

@@ -1,0 +1,10 @@
+# Local state and logs
+logs/
+state/
+*.log
+
+# Real credentials - only secrets.example.env belongs in git
+config/secrets.env
+
+# OS noise
+.DS_Store

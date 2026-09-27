@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Server report - e2b.local - 2026-09-27</title>
+<style>
+  body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+       background:#0f172a;color:#e2e8f0;margin:0;padding:2rem}
+  h1{font-size:1.4rem;margin:0 0 .2rem}
+  .sub{color:#94a3b8;font-size:.85rem;margin-bottom:1.5rem}
+  .cards{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem}
+  .card{background:#1e293b;border-radius:12px;padding:1rem 1.25rem;min-width:150px}
+  .card .k{font-size:.75rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em}
+  .card .v{font-size:1.5rem;font-weight:700;margin-top:.25rem}
+  table{width:100%;border-collapse:collapse;background:#1e293b;border-radius:12px;overflow:hidden}
+  th,td{padding:.6rem .9rem;text-align:left;font-size:.9rem}
+  th{background:#334155;color:#cbd5e1;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em}
+  tr+tr td{border-top:1px solid #334155}
+  .pill{padding:.15rem .6rem;border-radius:999px;font-size:.75rem;font-weight:700}
+  .OK{background:#14532d;color:#86efac}.WARN{background:#713f12;color:#fde047}
+  .CRIT{background:#7f1d1d;color:#fca5a5}.UNKNOWN{background:#3f3f46;color:#d4d4d8}
+  h2{font-size:1rem;margin:1.5rem 0 .5rem}
+  pre{background:#1e293b;border-radius:12px;padding:1rem;overflow:auto;font-size:.85rem}
+</style></head><body>
+<h1>Daily server report</h1>
+<div class="sub">Host: e2b.local &middot; Generated: 2026-09-27 13:38:33 +0530</div>
+<div class="cards">
+  <div class="card"><div class="k">Checks OK</div><div class="v">7</div></div>
+  <div class="card"><div class="k">Warnings</div><div class="v">0</div></div>
+  <div class="card"><div class="k">Critical</div><div class="v">0</div></div>
+  <div class="card"><div class="k">Unknown</div><div class="v">1</div></div>
+</div>
+<h2>Latest check results</h2>
+<table><tr><th>Metric</th><th>Value</th><th>Status</th><th>Detail</th></tr>
+<tr><td>cpu</td><td>0.5</td><td><span class="pill OK">OK</span></td><td>CPU usage 0.5% (warn 80%; crit 95%)</td></tr>
+<tr><td>disk:/</td><td>30</td><td><span class="pill OK">OK</span></td><td>/ is 30% full (warn 80%; crit 90%)</td></tr>
+<tr><td>disk:/observations</td><td>0</td><td><span class="pill OK">OK</span></td><td>/observations is 0% full (warn 80%; crit 90%)</td></tr>
+<tr><td>inode:/</td><td>4</td><td><span class="pill OK">OK</span></td><td>/ inode usage 4% (warn 80%; crit 90%)</td></tr>
+<tr><td>inode:/observations</td><td>0</td><td><span class="pill OK">OK</span></td><td>/observations inode usage 0% (warn 80%; crit 90%)</td></tr>
+<tr><td>load</td><td>0.12</td><td><span class="pill OK">OK</span></td><td>Load 0.25 on 2 core(s) = 0.12 per core (warn 2.0; crit 4.0)</td></tr>
+<tr><td>memory</td><td>25.5</td><td><span class="pill OK">OK</span></td><td>Memory used 25.5% of 1982 MB (warn 80%; crit 95%)</td></tr>
+<tr><td>services</td><td>NA</td><td><span class="pill UNKNOWN">UNKNOWN</span></td><td>systemd is not running here; service checks skipped</td></tr>
+</table>
+<h2>Top processes by CPU</h2>
+<pre>
+    PID COMMAND         %CPU %MEM
+    544 envd             0.8  1.1
+    813 xfwm4            0.4  2.1
+    748 Xvfb             0.3  4.3
+    854 xfce4-panel      0.3  1.8
+    881 xfdesktop        0.2  2.2
+</pre>
+<h2>Uptime &amp; load</h2>
+<pre>
+ 13:38:33 up 1 min,  0 users,  load average: 0.25, 0.20, 0.08
+</pre>
+</body></html>
